@@ -1,5 +1,7 @@
 import { authRepository } from './auth.repository'
 import { User } from '../model/user'
+import axios from 'axios'
+
 
 class UserService {
 
@@ -85,6 +87,24 @@ class UserService {
         } else {
             return null
         }
+    }
+    
+    public async updateByAxios(id: number, name: string) {
+         const res = await axios({
+            headers:this.getHeaders(),
+            method: 'put',
+            url: `http://localhost:3030/users/${id}`,
+            data: {
+                id: id,
+                name: name
+            }
+         })
+        console.log('response', res)
+         if (res) {
+            return !!res
+         } else {
+            return null
+         }
     }
 
     public async delete(id: number) {

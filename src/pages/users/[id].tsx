@@ -37,15 +37,20 @@ export default function UserPage() {
         }
 
         if (user.id) {
-            userService.update(user.id!, user.name).then(isSaved => {
-                if (isSaved) {
-                    goBack()
-                } else {
-                    router.replace('login')
-                }
+            //CHAMANDO COM FETCH
+            // userService.update(user.id!, user.name).then(isSaved => {
+            
+            //CHAMANDO COM AXIOS
+            userService.updateByAxios(user.id!, user.name).then(isSaved => {
+            if (isSaved) {
+                goBack()
+            } else {
+                router.replace('login')
+            }
             }).catch(error => {
                 alert(error.message)
             })
+          
 
         } else {
             if (!user.username || user.username.trim() === '') {
